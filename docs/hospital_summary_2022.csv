@@ -1,0 +1,207 @@
+permanent_facility_id,name,n,deaths,rate
+000001,Albany Medical Center Hospital,34455,1351,0.03921056450442606
+000002,Albany Medical Center - South Clinical Campus,2,0,0.0
+000005,St. Peter's Hospital,23386,598,0.02557085435730779
+000012,Lakeview Center for Mental Health and Wellness,1191,0,0.0
+000037,Cuba Memorial Hospital Inc,2,0,0.0
+000039,Memorial Hosp of Wm F & Gertrude F Jones A/K/A Jones Memorial Hosp,1892,38,0.0200845665961945
+000042,United Health Services Hospitals Inc. - Binghamton General Hospital,3051,73,0.023926581448705343
+000043,Our Lady of Lourdes Memorial Hospital,9633,0,0.0
+000058,United Health Services Hospitals Inc. - Wilson Medical Center,12578,652,0.051836539990459535
+000066,Olean General Hospital,5520,286,0.05181159420289855
+000085,Auburn Community Hospital,4707,194,0.04121521138729552
+000098,"Brooks-TLC Hospital System, Inc.",1277,88,0.06891151135473766
+000103,UPMC Chautauqua at WCA,5839,179,0.030655934235314267
+000111,Westfield Memorial Hospital Inc,156,8,0.05128205128205128
+000116,Arnot Ogden Medical Center,7794,346,0.044393122915062866
+000118,St. Joseph's Hospital,894,0,0.0
+000128,Chenango Memorial Hospital Inc,1217,65,0.05341002465078061
+000135,The University of Vermont Health Network - Champlain Valley Physicians Hospital,8034,381,0.0474234503360717
+000146,Columbia Memorial Hospital,2898,149,0.05141476880607315
+000158,Guthrie Cortland Medical Center,3713,112,0.030164287638028548
+000165,O'Connor Hospital,119,5,0.04201680672268908
+000170,Margaretville Hospital,95,4,0.042105263157894736
+000174,Delaware Valley Hospital Inc,143,3,0.02097902097902098
+000180,Mid-Hudson Valley Division of Westchester Medical Center,7793,220,0.02823046323623765
+000181,Vassar Brothers Medical Center,22186,716,0.03227260434508249
+000192,Northern Dutchess Hospital,6220,109,0.01752411575562701
+000207,Buffalo General Medical Center,22429,1350,0.06018993267644567
+000208,John R. Oishei Children's Hospital,13339,48,0.0035984706499737613
+000210,Erie County Medical Center,16161,543,0.033599405977352885
+000213,Mercy Hospital of Buffalo,16341,981,0.060033045713236644
+000216,Roswell Park Cancer Institute,5078,252,0.049625836943678614
+000218,Sisters of Charity Hospital,11237,229,0.020379104743258877
+000245,Stony Brook University Hospital,34961,844,0.024141185892852034
+000267,Kenmore Mercy Hospital,6068,319,0.0525708635464733
+000280,Bertrand Chaffee Hospital,723,41,0.056708160442600276
+000292,Sisters of Charity Hospital - St. Joseph Campus,1061,36,0.033930254476908575
+000303,The University of Vermont Health Network - Elizabethtown Community Hospital,563,32,0.056838365896980464
+000324,Adirondack Medical Center-Saranac Lake Site,2235,77,0.03445190156599553
+000325,The University of Vermont Health Network - Alice Hyde Medical Center,825,37,0.044848484848484846
+000330,Nathan Littauer Hospital,2549,100,0.03923107100823853
+000339,United Memorial Medical Center North Street Campus,4520,134,0.029646017699115044
+000340,United Memorial Medical Center Bank Street Campus,379,0,0.0
+000362,Little Falls Hospital,584,16,0.0273972602739726
+000367,Samaritan Medical Center,9318,197,0.021141875939042713
+000377,"River Hospital, Inc.",118,2,0.01694915254237288
+000379,Carthage Area Hospital Inc,1183,5,0.00422654268808115
+000383,Lewis County General Hospital,795,16,0.02012578616352201
+000393,Nicholas H. Noyes Memorial Hospital,2254,115,0.05102040816326531
+000397,Oneida Health Hospital,2756,112,0.040638606676342524
+000401,Community Memorial Hospital Inc,1044,19,0.018199233716475097
+000409,Highland Hospital,17686,479,0.027083568924573108
+000411,Rochester General Hospital,26823,755,0.028147485367035752
+000412,Unity Specialty Hospital,322,0,0.0
+000413,Strong Memorial Hospital,39776,1575,0.0395967417538214
+000471,The Unity Hospital of Rochester,16683,450,0.026973565905412694
+000482,St. Mary's Healthcare - Amsterdam Memorial Campus,126,0,0.0
+000484,St. Mary's Healthcare,3054,37,0.012115258677144728
+000490,Glen Cove Hospital,5358,135,0.025195968645016796
+000511,NYU Langone Hospital-Long Island,35305,466,0.01319926356040221
+000513,Mercy Hospital,11283,231,0.020473278383408667
+000518,Long Island Jewish Valley Stream,9624,303,0.031483790523690776
+000527,Mount Sinai South Nassau,19942,707,0.03545281315815866
+000528,Nassau University Medical Center,16427,382,0.023254398246788825
+000541,North Shore University Hospital,48720,1341,0.02752463054187192
+000550,Syosset Hospital,3923,75,0.01911802192199847
+000551,St. Joseph Hospital,6163,261,0.04234950511114717
+000552,Plainview Hospital,7751,245,0.0316088246677848
+000563,St. Francis Hospital & Heart Center,19289,475,0.02462543418528695
+000565,Eastern Niagara Hospital - Lockport Division,713,20,0.028050490883590462
+000574,Niagara Falls Memorial Medical Center,3683,139,0.037740972033668205
+000583,Mount St. Mary's Hospital and Health Center,4520,142,0.031415929203539826
+000589,"Rome Memorial Hospital, Inc",3796,134,0.03530031612223393
+000598,St Elizabeth Medical Center,8041,318,0.03954731998507648
+000599,Faxton-St Lukes Healthcare St Lukes Division,11635,425,0.0365277180919639
+000628,UPSTATE University Hospital at Community General,8874,164,0.018480955600631056
+000630,St. Joseph's Hospital Health Center,17263,545,0.03157041070497596
+000635,University Hospital SUNY Health Science Center,20154,825,0.04093480202441203
+000636,Crouse Hospital,20300,722,0.035566502463054185
+000671,Geneva General Hospital,2629,161,0.06124001521491061
+000676,Clifton Springs Hospital and Clinic,2937,80,0.027238678924072182
+000678,F.F. Thompson Hospital,5633,235,0.04171844487839517
+000694,St Luke's Cornwall Hospital/Newburgh,10187,273,0.02679886129380583
+000699,Garnet Health Medical Center,20026,598,0.029861180465394987
+000704,St Anthony Community Hospital,2097,38,0.018121125417262757
+000708,Bon Secours Community Hospital,2995,77,0.025709515859766278
+000718,Medina Memorial Hospital,248,10,0.04032258064516129
+000727,Oswego Hospital,3566,143,0.040100953449242846
+000739,A.O. Fox Memorial Hospital,1126,44,0.03907637655417407
+000746,Mary Imogene Bassett Hospital,8772,303,0.03454172366621067
+000752,Putnam Hospital,3572,117,0.032754759238521836
+000755,Samaritan Hospital - St. Mary's Campus,257,0,0.0
+000756,Samaritan Hospital,9215,237,0.025718936516549103
+000775,Helen Hayes Hospital,1517,0,0.0
+000776,Montefiore Nyack,11673,327,0.02801336417373426
+000779,Good Samaritan Hospital of Suffern,17585,390,0.022177992607335797
+000798,Claxton-Hepburn Medical Center,2620,69,0.02633587786259542
+000804,Massena Hospital,1340,37,0.027611940298507463
+000812,Gouverneur Hospital,493,14,0.028397565922920892
+000815,Canton-Potsdam Hospital,5027,158,0.03143027650686294
+000817,Clifton-Fine Hospital,45,1,0.022222222222222223
+000818,Saratoga Hospital,10987,439,0.03995631200509693
+000829,Ellis Hospital,8781,471,0.05363853775196447
+000831,Sunnyview Hospital and Rehabilitation Center,2006,7,0.003489531405782652
+000848,Ellis Hospital - Bellevue Woman's Care Center Division,3754,4,0.0010655301012253596
+000858,Schuyler Hospital,283,17,0.06007067137809187
+000866,Corning Hospital,4521,132,0.029197080291970802
+000870,St. James Hospital,904,49,0.05420353982300885
+000873,Ira Davenport Memorial Hospital,148,10,0.06756756756756757
+000885,Long Island Community Hospital,7796,449,0.05759363776295536
+000889,Stony Brook Southampton Hospital,4597,98,0.021318251033282574
+000891,Stony Brook Eastern Long Island Hospital,1538,12,0.007802340702210663
+000895,John T Mather Memorial Hospital of Port Jefferson New York Inc,8483,160,0.018861251915595897
+000896,St. Charles Hospital,10226,84,0.008214355564247995
+000913,Huntington Hospital,20438,357,0.017467462569723063
+000924,South Shore University Hospital,23307,577,0.024756510919466256
+000925,Good Samaritan Hospital Medical Center,25612,761,0.029712634702483212
+000938,Peconic Bay Medical Center,9856,234,0.023741883116883116
+000943,St Catherine of Siena Hospital,10526,227,0.02156564696940908
+000968,Garnet Health Medical Center - Catskills - G. Hermann Site,82,1,0.012195121951219513
+000971,Garnet Health Medical Center - Catskills,3781,97,0.02565458873313938
+000977,Cayuga Medical Center at Ithaca,5967,170,0.02849002849002849
+000989,HealthAlliance Hospital Mary's Avenue Campus,266,11,0.041353383458646614
+000990,HealthAlliance Hospital Broadway Campus,5443,259,0.04758405291199706
+001002,Ellenville Regional Hospital,95,0,0.0
+001005,Glens Falls Hospital,11962,481,0.04021066711252299
+001028,Newark-Wayne Community Hospital,5021,96,0.01911969727145987
+001039,NewYork-Presbyterian/Hudson Valley Hospital,7566,240,0.0317208564631245
+001045,White Plains Hospital Center,21315,509,0.023879896786300727
+001046,Winifred Masterson Burke Rehabilitation Hospital,2679,2,0.0007465472191116088
+001047,New York-Presbyterian Westchester Behavioral Health Center,3484,0,0.0
+001061,Montefiore Mount Vernon Hospital,1728,6,0.003472222222222222
+001072,Montefiore New Rochelle Hospital,5759,214,0.037159229032818195
+001097,SJRH - St Johns Division,7605,253,0.03326758711374096
+001098,St. Joseph's Medical Center,2810,66,0.023487544483985764
+001099,SJRH - Park Care Pavilion,7361,1,0.00013585110718652356
+001117,Northern Westchester Hospital,10727,181,0.016873310338398433
+001122,New York - Presbyterian Hospital,11528,333,0.02888619014573213
+001124,SJRH - Dobbs Ferry Pavillion,379,3,0.0079155672823219
+001129,Phelps Hospital,7275,231,0.03175257731958763
+001133,St. Joseph's MC-St. Vincent's Westchester Division,2568,0,0.0
+001138,Blythedale Children's Hospital,413,0,0.0
+001139,Westchester Medical Center,23939,875,0.036551234387401314
+001153,Wyoming County Community Hospital,2145,68,0.031701631701631705
+001158,Soldiers and Sailors Memorial Hospital of Yates County,288,22,0.0763888888888889
+001164,BronxCare Hospital Center,4328,0,0.0
+001165,Jacobi Medical Center,20095,447,0.02224433938790744
+001168,Montefiore Medical Center-Wakefield Hospital,14790,331,0.02237998647734956
+001169,Montefiore Medical Center - Henry & Lucy Moses Div,35093,1028,0.029293591314507168
+001172,Lincoln Medical & Mental Health Center,18477,339,0.01834713427504465
+001175,Calvary Hospital Inc,1967,1683,0.8556176919166243
+001176,SBH Health System,13998,418,0.029861408772681813
+001178,BronxCare Hospital Center,21106,440,0.02084715246849237
+001186,North Central Bronx Hospital,7079,66,0.009323350755756462
+001286,Brookdale Hospital Medical Center,13098,554,0.04229653382195755
+001288,Brooklyn Hospital Center - Downtown Campus,11381,330,0.02899569457868377
+001293,"New York Community Hospital of Brooklyn, Inc",2582,163,0.06312935708752905
+001294,Coney Island Hospital,12943,611,0.047206984470370084
+001301,Kings County Hospital Center,17446,462,0.02648171500630517
+001304,NYU Langone Hospital-Brooklyn,27020,200,0.007401924500370096
+001305,Maimonides Medical Center,34581,1161,0.03357334952719702
+001306,New York - Presbyterian Brooklyn Methodist Hospital,29155,692,0.02373520836906191
+001309,Interfaith Medical Center,5263,191,0.03629108873266198
+001315,Kingsbrook Jewish Medical Center,1138,30,0.026362038664323375
+001318,Wyckoff Heights Medical Center,11490,233,0.020278503046127067
+001320,University Hospital of Brooklyn,7183,239,0.03327300570792148
+001324,Mount Sinai Brooklyn,8100,397,0.049012345679012345
+001437,New York-Presbyterian/Lower Manhattan Hospital,8859,239,0.02697821424540016
+001438,Bellevue Hospital Center,27761,547,0.019703901156298404
+001439,Mount Sinai Beth Israel,11628,280,0.024079807361541108
+001445,Harlem Hospital Center,10448,296,0.028330781010719754
+001446,NYU Langone Orthopedic Hospital,4411,5,0.0011335298118340512
+001447,Hospital for Special Surgery,11446,0,0.0
+001450,Lenox Hill Hospital,30206,372,0.012315434019731179
+001453,Memorial Hospital for Cancer and Allied Diseases,22712,901,0.03967065868263473
+001454,Metropolitan Hospital Center,7760,76,0.00979381443298969
+001456,Mount Sinai Hospital,50110,1289,0.025723408501297146
+001458,New York-Presbyterian Hospital - New York Weill Cornell Center,43877,846,0.019281172368211134
+001460,New York Eye and Ear Infirmary of Mount Sinai,319,0,0.0
+001463,NYU Langone Hospitals,43482,385,0.008854238535485948
+001464,New York-Presbyterian Hospital - Columbia Presbyterian Center,44167,944,0.021373423596803044
+001466,Mount Sinai West,22949,335,0.014597585951457579
+001469,Mount Sinai Morningside,15975,534,0.03342723004694836
+001486,Henry J. Carter Specialty Hospital,512,37,0.072265625
+001626,Elmhurst Hospital Center,19797,545,0.02752942365004799
+001628,Flushing Hospital Medical Center,12416,306,0.02464561855670103
+001629,Jamaica Hospital Medical Center,15903,607,0.03816889894988367
+001630,Long Island Jewish Medical Center,39232,724,0.01845432300163132
+001633,Queens Hospital Center,13047,271,0.02077105848087683
+001635,St Johns Episcopal Hospital So Shore,7823,406,0.05189824875367506
+001637,New York - Presbyterian/Queens,27590,898,0.03254802464661109
+001638,Long Island Jewish Forest Hills,14966,360,0.02405452358679674
+001639,Mount Sinai Hospital - Mount Sinai Hospital of Queens,8809,344,0.039050970598251786
+001692,Woodhull Medical & Mental Health Center,9289,190,0.020454300785875765
+001737,Staten Island University Hospital Prince's Bay,7196,183,0.025430794886047804
+001738,Richmond University Medical Center,13991,380,0.02716031734686584
+001740,Staten Island University Hosp-North,29607,863,0.029148512176174552
+003058,Montefiore Med Center - Jack D Weiler Hosp of A Einstein College Div,24448,675,0.027609620418848166
+003067,Millard Fillmore Suburban Hospital,17546,763,0.04348569474524108
+003376,Cohen Children's Medical Center,18114,86,0.004747708954399911
+003975,New York Presbyterian Hospital - Allen Hospital,12630,414,0.0327790973871734
+009059,Crouse Hospital - Commonwealth Division,426,0,0.0
+009431,St. Peter's Addiction Recovery Center,491,0,0.0
+010139,New York-Presbyterian David H. Koch Center,2,0,0.0
+010216,Cobleskill Regional Hospital,400,15,0.0375
+010223,Calvary Hospital,283,253,0.8939929328621908
+010355,David H. Koch Center For Cancer Care,1043,3,0.0028763183125599234

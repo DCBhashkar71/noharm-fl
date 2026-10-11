@@ -1,0 +1,25 @@
+version: 1
+status: FROZEN-DRAFT-1
+population: adults 18+, SPARCS 2022, hospitals with permanent_facility_id
+exclusions:
+  - "palliative or hospice-only facilities (death rate above 50%): Calvary Hospital, IDs 010223 and 001175"
+  - "rows with no permanent_facility_id (5,390 rows)"
+  - "age 0 to 17; gender U"
+data_rows: 1794116
+hospitals_after_exclusion: 204
+min_hospital_deaths_cutoffs: [50, 100, 200]   # headline: 100
+splits: {train: 0.50, cert: 0.25, test: 0.25, stratified_by: [hospital, outcome]}
+pilot_seed: 0                                 # exploratory only, not reported as results
+final_seeds: [100, 101, 102, 103, 104]
+features_headline: without_apr_fields
+features_sensitivity: with_apr_fields
+excluded_features: [length_of_stay, total_charges, total_costs]
+groups: [gender, age_band, race_grp]          # age_band: 18-49, 50-69, 70+; race_grp: White, Black, Other/Multi
+group_testable_rule: ">= 20 expected certification deaths, computed from training-split counts"
+alpha: 0.05
+epsilon_loss_grid: [0.0, 0.0005, 0.001]       # ASSUMPTION, log-loss units
+delta_calibration_grid: [0.01, 0.015, 0.02]
+candidates_local_to_federated: [0.0, 0.25, 0.5, 0.75, 1.0]   # blend weight on pooled model
+multiple_testing: holm
+harm_rate_bar: 0.10
+primary_model: logistic_regression
