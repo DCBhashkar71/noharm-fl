@@ -1,5 +1,6 @@
 version: 1
-status: FROZEN-DRAFT-1
+status: FROZEN
+frozen_date: 2026-11-03
 population: adults 18+, SPARCS 2022, hospitals with permanent_facility_id
 exclusions:
   - "palliative or hospice-only facilities (death rate above 50%): Calvary Hospital, IDs 010223 and 001175"
