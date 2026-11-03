@@ -24,3 +24,10 @@ candidates_local_to_federated: [0.0, 0.25, 0.5, 0.75, 1.0]   # blend weight on p
 multiple_testing: holm
 harm_rate_bar: 0.10
 primary_model: logistic_regression
+amendment_1:
+  date: 2026-11-03
+  reason: "Pilot (seed 0, certification split only): the empirical-Bernstein bound certified 0 of 126 hospitals at eps <= 0.005, betting certified 0 at eps 0.001; original eps grid is not certifiable."
+  epsilon_loss_grid: [0.005, 0.01, 0.02]      # supersedes the original grid
+  primary_bound: betting
+  secondary_bound: empirical_bernstein
+  final_seed_data_used_before_amendment: false
