@@ -50,3 +50,15 @@ amendment_4:
   primary_comparison: "certified fine-tuned vs certified pooled vs fine-tuning alone: hospitals harmed beyond eps (Holm), worst-hospital regret, mean loss gain and AUROC gain over local"
   success_criterion: "certified fine-tuned has 0 hospitals harmed beyond eps on every seed, and its mean loss gain over local is larger than that of the certified pooled sequence"
   seeds_101_to_104: "reported as the original analysis; not used to tune the new variant"
+amendment_5:
+  date: 2026-11-04
+  reason: "Pilot seed 0 only: the guaranteed empirical-Bernstein calibration bound has a floor of about 0.008 at n=3000 for unrestricted candidates (0.0004 when clipped to local +/- 0.05)."
+  candidates: "blends (0.25, 0.5, 0.75, 1.0) of the pooled model and of the fine-tuned model with the local model, each clipped to the local prediction +/- 0.05 (c fixed on the pilot, not tuned further)"
+  calibration_certificate: "paired design: empirical-Bernstein bounds (alpha/4 each) on the local error e0 and on D = mean(candidate - local); worst case of |e0 + D| - |e0| over the box; group testable if >= 20 training deaths; overall calibration also tested"
+  acceptance_rule: "a candidate passes only if the loss betting test passes at alpha AND every testable group and the overall calibration bound is <= delta; fixed sequence local to federated, stop at first failure"
+  eps_grid: [0.005, 0.01, 0.02]
+  delta_grid: [0.01, 0.015, 0.02]
+  headline_pairs: "(eps, delta) = (0.005, 0.01), (0.01, 0.015), (0.02, 0.02); the full 3x3 grid is saved"
+  seeds: [110, 111, 112, 113, 114]
+  success_criterion: "on every seed, both certified sequences have 0 hospitals significantly harmed beyond eps on loss (Holm) and 0 beyond delta on any group (Bonferroni-corrected lower bound), at every headline pair"
+  test_side_calibration_significance: "lower confidence bound of |e_m| - |e_0| per group, normal approximation, Bonferroni over the hospital's tested groups"

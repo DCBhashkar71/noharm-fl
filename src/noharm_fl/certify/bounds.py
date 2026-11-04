@@ -55,3 +55,40 @@ def fixed_sequence(pvals, alpha=0.05):
         else:
             break
     return sel
+
+
+def eb_lower(d, lo, hi, alpha=0.05):
+    """Empirical-Bernstein lower bound on E[d] (one-sided level alpha)."""
+    return -eb_upper(-np.asarray(d, float), -hi, -lo, alpha)
+
+
+def worst_case_cal_gap(l0, u0, lb, ub):
+    """max of |a+b| - |a| over the box a in [l0,u0], b in [lb,ub]. The function is piecewise linear,
+    so the maximum is at a box corner or where a=0 or a+b=0 meets a box edge."""
+    cands = [(a, b) for a in (l0, u0) for b in (lb, ub)]
+    if l0 <= 0 <= u0:
+        cands += [(0.0, lb), (0.0, ub)]
+    for b in (lb, ub):
+        if l0 <= -b <= u0:
+            cands.append((-b, b))
+    return max(abs(a + b) - abs(a) for a, b in cands)
+
+
+def calibration_gap_bound(p_m, p_0, y, alpha=0.05):
+    """Upper bound on |e_m| - |e_0| for one group (e = mean prediction minus outcome), with probability >= 1 - alpha.
+    Four one-sided EB bounds at alpha/4 each: two for e_0, two for the paired difference D = mean(p_m - p_0)."""
+    a = alpha / 4
+    e0 = np.asarray(p_0, float) - np.asarray(y, float)
+    dd = np.asarray(p_m, float) - np.asarray(p_0, float)
+    return worst_case_cal_gap(eb_lower(e0, -1, 1, a), eb_upper(e0, -1, 1, a),
+                              eb_lower(dd, -1, 1, a), eb_upper(dd, -1, 1, a))
+
+
+def calibration_gap_bound_clipped(p_m, p_0, y, c, alpha=0.05):
+    """Same as calibration_gap_bound, for the candidate clipped to p_0 +/- c, so the paired difference lies in [-c, c]."""
+    a = alpha / 4
+    p_m, p_0, y = np.asarray(p_m, float), np.asarray(p_0, float), np.asarray(y, float)
+    dd = np.clip(p_m, p_0 - c, p_0 + c) - p_0
+    e0 = p_0 - y
+    return worst_case_cal_gap(eb_lower(e0, -1, 1, a), eb_upper(e0, -1, 1, a),
+                              eb_lower(dd, -c, c, a), eb_upper(dd, -c, c, a))
