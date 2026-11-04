@@ -31,3 +31,9 @@ amendment_1:
   primary_bound: betting
   secondary_bound: empirical_bernstein
   final_seed_data_used_before_amendment: false
+amendment_2:
+  date: 2026-11-04
+  note: "Seed 100 was viewed before this amendment and is reported as exploratory only. Confirmatory seeds: 101, 102, 103, 104."
+  reporting_rule: "Report harm at eps=0 (significance, Holm) as the primary C1 number, plus raw point-estimate shares above each eps and worst-hospital regret, with the size-quartile breakdown."
+  new_analyses_added: none
+  confirmatory_seeds: [101, 102, 103, 104]
