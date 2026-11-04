@@ -37,3 +37,8 @@ amendment_2:
   reporting_rule: "Report harm at eps=0 (significance, Holm) as the primary C1 number, plus raw point-estimate shares above each eps and worst-hospital regret, with the size-quartile breakdown."
   new_analyses_added: none
   confirmatory_seeds: [101, 102, 103, 104]
+amendment_3:
+  date: 2026-11-04
+  note: "Implementation of baselines already named in the plan, plus AUROC, AUPRC, calibration slope and intercept. Hyperparameters fixed and not tuned: FedProx mu 0.01, 30 rounds, 10 local L-BFGS iterations, fine-tuning 5 iterations. No change to the certificate or to eps grid."
+  runs_on_seeds: [101, 102, 103, 104]
+  seed_100: exploratory only
