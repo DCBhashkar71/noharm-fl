@@ -42,3 +42,11 @@ amendment_3:
   note: "Implementation of baselines already named in the plan, plus AUROC, AUPRC, calibration slope and intercept. Hyperparameters fixed and not tuned: FedProx mu 0.01, 30 rounds, 10 local L-BFGS iterations, fine-tuning 5 iterations. No change to the certificate or to eps grid."
   runs_on_seeds: [101, 102, 103, 104]
   seed_100: exploratory only
+amendment_4:
+  date: 2026-11-04
+  reason: "Fine-tuning was the strongest baseline on confirmatory seeds 101-104 (visible before this amendment). Test whether a certified blend between the local and the fine-tuned model keeps its gain with a no-harm guarantee."
+  new_candidate_sequence: "local, then blends 0.25/0.5/0.75/1.0 of the fine-tuned model with the local model (same fixed-sequence test, same eps grid, betting bound)"
+  new_seeds: [105, 106, 107, 108, 109]
+  primary_comparison: "certified fine-tuned vs certified pooled vs fine-tuning alone: hospitals harmed beyond eps (Holm), worst-hospital regret, mean loss gain and AUROC gain over local"
+  success_criterion: "certified fine-tuned has 0 hospitals harmed beyond eps on every seed, and its mean loss gain over local is larger than that of the certified pooled sequence"
+  seeds_101_to_104: "reported as the original analysis; not used to tune the new variant"
