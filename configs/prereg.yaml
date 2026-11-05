@@ -67,3 +67,9 @@ amendment_6:
   note: "Output-only change to run_cert_full.py: saves per-group results (group error with and without the model, calibration gap and lower bound) and calibration bins. Certificate, candidates, seeds and tolerances unchanged; main results must reproduce exactly."
   descriptive_only: "race_grp x age_band intersection (testable when >= 20 training deaths in the hospital) is evaluated on the test split but NOT used in certification; Bonferroni over the intersections tested in that hospital."
   seeds: [110, 111, 112, 113, 114]
+amendment_7:
+  date: 2026-11-05
+  note: "Temporal check. Models, certification and choices as in amendment 5 (2022 train and certification splits, seeds 110-114). Each hospital's fixed choice is tested on all of its adult SPARCS 2023 discharges, matched by permanent_facility_id; hospitals with fewer than 200 adult discharges in 2023 are skipped and counted. Encoder fit on 2022 training rows only. Nothing is tuned on 2023."
+  data_2023: "adults, F/M, excluding Calvary; 1,822,591 rows, 50,983 deaths, 205 hospitals; adult death rate 2.80% against 3.16% in 2022"
+  interpretation: "The certificate assumes the same patient population, so this is a robustness check under shift, not a validation of the guarantee. No pass/fail criterion."
+  reported: "hospitals harmed beyond eps on loss (Holm), beyond delta on any group (Bonferroni lower bound and point estimate), for unclipped pooled, unclipped fine-tuning, certified pooled and certified fine-tuned, at the three headline pairs, with the 2022 test results alongside"
