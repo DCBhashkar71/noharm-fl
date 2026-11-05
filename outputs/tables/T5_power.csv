@@ -1,0 +1,7 @@
+item,total,count,share
+hospitals with at least 50 deaths,142,,
+hospitals with at least 100 deaths,126,,
+hospitals with at least 200 deaths,99,,
+gender: hospital-group cells with expected certification deaths >= 10 / 20 / 40,404,266 / 218 / 139,66% / 54% / 34%
+age_band: hospital-group cells with expected certification deaths >= 10 / 20 / 40,600,277 / 202 / 121,46% / 34% / 20%
+race_grp: hospital-group cells with expected certification deaths >= 10 / 20 / 40,585,272 / 206 / 120,46% / 35% / 21%
