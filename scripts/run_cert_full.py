@@ -15,12 +15,14 @@ B, ALPHA, C = 5.0, 0.05, 0.05
 BLENDS = [0.25, 0.5, 0.75, 1.0]
 EPS = [0.005, 0.01, 0.02]
 DELTA = [0.01, 0.015, 0.02]
+HEAD = list(zip(EPS, DELTA))              # headline (eps, delta) pairs
 LAM, FT_IT = 1e-5, 5
 GROUPS = ["gender", "age_band", "race_grp"]
 
 X, y, h, split, keep = load(seed)
 df = pd.read_parquet(ROOT / "data/interim/sparcs_2022_adults.parquet").reset_index(drop=True)
 gcols = {g: df[g].values for g in GROUPS}
+gcols["race_x_age"] = (df["race_grp"].astype(str) + "|" + df["age_band"].astype(str)).values
 Xb = sp.hstack([X, sp.csr_matrix(np.ones((X.shape[0], 1)))]).tocsr()
 tr, ce, te = split == "train", split == "cert", split == "test"
 
@@ -60,12 +62,28 @@ def cand(pl, ps, a):
     return np.clip(np.clip((1 - a) * pl + a * ps, pl - C, pl + C), 0.0, 1.0)
 
 
+def bin_rows(k, grp, lev, mname, p, yy, nb):
+    if len(p) < 10 * nb:
+        return []
+    try:
+        g = pd.DataFrame({"p": p, "y": yy, "b": pd.qcut(p, nb, duplicates="drop")}).groupby("b", observed=True).agg(
+            n=("y", "size"), mean_p=("p", "mean"), mean_y=("y", "mean"))
+        return [(seed, k, grp, lev, mname, i, r.n, r.mean_p, r.mean_y) for i, r in enumerate(g.itertuples())]
+    except Exception:
+        return []
+
+
 t0 = time.time()
 pooled = LogisticRegression(C=1.0, max_iter=300).fit(X[tr], y[tr])
 w_pool = np.append(pooled.coef_[0], pooled.intercept_[0])
 print(f"pooled model done in {time.time() - t0:.0f}s", flush=True)
 
-rows = []
+META = {"local": (np.nan, np.nan), "pool_full": (np.nan, np.nan), "ft_full": (np.nan, np.nan)}
+for src in ("pool", "ft"):
+    for eps, delta in HEAD:
+        META[f"cert_{src}_e{eps}_d{delta}"] = (eps, delta)
+
+rows, grows, bins = [], [], []
 for k in keep:
     mk = h == k
     a_, c_, t_ = mk & tr, mk & ce, mk & te
@@ -78,17 +96,29 @@ for k in keep:
         for lev in np.unique(v):
             if y[a_][v == lev].sum() >= 20:
                 tg.append((g, lev))
+    ig = []                                                    # intersections: descriptive only
+    vi = gcols["race_x_age"][a_]
+    for lev in np.unique(vi):
+        if y[a_][vi == lev].sum() >= 20:
+            ig.append(("race_x_age", lev))
 
-    def group_idx(m):
-        sub = {g: gcols[g][m] for g in GROUPS}
-        return [np.arange(int(m.sum())) if g == "overall" else np.where(sub[g] == lev)[0] for g, lev in tg]
+    def idx_of(m, glist):
+        sub, out = {}, []
+        for g, lev in glist:
+            if g == "overall":
+                out.append(np.arange(int(m.sum())))
+            else:
+                if g not in sub:
+                    sub[g] = gcols[g][m]
+                out.append(np.where(sub[g] == lev)[0])
+        return out
 
     PR = {}
     for name, m in (("cert", c_), ("test", t_)):
         PR[name] = {"local": loc.predict_proba(X[m])[:, 1], "pool": pooled.predict_proba(X[m])[:, 1], "ft": expit(Xb[m] @ w_ft)}
 
-    # certification side
-    yc = y[c_].astype(float); ic = group_idx(c_); pl_c = PR["cert"]["local"]
+    # certification side (unchanged)
+    yc = y[c_].astype(float); ic = idx_of(c_, tg); pl_c = PR["cert"]["local"]
     base_c = clip_loss(pl_c, yc, B)
     lossp, calmax = {}, {}
     for src in ("pool", "ft"):
@@ -111,7 +141,7 @@ for k in keep:
                 chosen[(src, eps, delta)] = sel
 
     # test side
-    yt = y[t_].astype(float); it = group_idx(t_); pl_t = PR["test"]["local"]
+    yt = y[t_].astype(float); it = idx_of(t_, tg); pl_t = PR["test"]["local"]
     base_t = clip_loss(pl_t, yt, B)
     zc = stats.norm.ppf(1 - 0.025 / len(tg))
 
@@ -122,10 +152,17 @@ for k in keep:
                 "auroc": roc_auc_score(yt, pt) if 0 < yt.sum() < len(yt) else np.nan,
                 "gapmax": max(g[0] for g in gs), "gaplb": max(g[1] for g in gs)}
 
+    PT = {"local": pl_t, "pool_full": PR["test"]["pool"], "ft_full": PR["test"]["ft"]}
     EV = {"local": evaluate(pl_t), "pool_full": evaluate(PR["test"]["pool"]), "ft_full": evaluate(PR["test"]["ft"])}
     for src in ("pool", "ft"):
         for a in BLENDS:
-            EV[f"{src}_b{a}"] = evaluate(cand(pl_t, PR["test"][src], a))
+            pb = cand(pl_t, PR["test"][src], a)
+            EV[f"{src}_b{a}"] = evaluate(pb)
+            PT[f"{src}_b{a}"] = pb
+    for src in ("pool", "ft"):
+        for eps, delta in HEAD:
+            sel = chosen[(src, eps, delta)]
+            PT[f"cert_{src}_e{eps}_d{delta}"] = pl_t if sel < 0 else PT[f"{src}_b{BLENDS[sel]}"]
 
     r = {"hospital": k, "n_train": int(a_.sum()), "deaths_train": int(y[a_].sum()), "n_test": int(t_.sum()),
          "deaths_test": int(yt.sum()), "n_groups_tested": len(tg)}
@@ -140,8 +177,31 @@ for k in keep:
             r[f"{pre}__{m_}"] = v
     rows.append(r)
 
+    # NEW: per-group rows (marginal groups tested by the certificate; intersections descriptive only)
+    zi = stats.norm.ppf(1 - 0.025 / max(len(ig), 1))
+    for kind, glist, zz in (("marginal", tg, zc), ("intersect", ig, zi)):
+        ii = it if kind == "marginal" else idx_of(t_, ig)
+        for (g, lev), ix in zip(glist, ii):
+            if len(ix) < 2:
+                continue
+            for mname, meta in META.items():
+                pt = PT[mname]
+                point, lb = gap_stats(pt[ix], pl_t[ix], yt[ix], zz)
+                grows.append((seed, k, kind, g, lev, len(ix), int(yt[ix].sum()), mname, meta[0], meta[1],
+                              (pl_t[ix] - yt[ix]).mean(), (pt[ix] - yt[ix]).mean(), point, lb))
+
+    # NEW: calibration bins for reliability curves
+    for mname in ("local", "pool_full", "cert_pool_e0.01_d0.015", "cert_ft_e0.01_d0.015"):
+        bins += bin_rows(k, "overall", "all", mname, PT[mname], yt, 10)
+        for (g, lev), ix in zip(tg[1:], it[1:]):
+            bins += bin_rows(k, g, lev, mname, PT[mname][ix], yt[ix], 5)
+
 res = pd.DataFrame(rows)
 res.to_csv(ROOT / f"outputs/tables/cert_full_seed{seed}.csv", index=False)
+pd.DataFrame(grows, columns=["seed", "hospital", "kind", "var", "level", "n_test", "deaths_test", "method", "eps", "delta",
+                             "e0", "em", "gap_point", "gap_lb"]).to_csv(ROOT / f"outputs/tables/cert_groups_seed{seed}.csv", index=False)
+pd.DataFrame(bins, columns=["seed", "hospital", "var", "level", "method", "bin", "n", "mean_p", "mean_y"]).to_csv(
+    ROOT / f"outputs/tables/cert_bins_seed{seed}.csv", index=False)
 
 
 def loss_mask(diff, se, eps):
@@ -150,7 +210,7 @@ def loss_mask(diff, se, eps):
 
 
 out = []
-for eps, delta in zip(EPS, DELTA):
+for eps, delta in HEAD:
     for label, pre in [("pooled (unclipped)", "pool_full"), ("fine-tuning (unclipped)", "ft_full"),
                        ("certified pooled", f"cert_pool_e{eps}_d{delta}"), ("certified fine-tuned", f"cert_ft_e{eps}_d{delta}")]:
         lm = loss_mask(res[f"{pre}__diff"].values, res[f"{pre}__se"].values, eps)

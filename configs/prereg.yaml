@@ -62,3 +62,8 @@ amendment_5:
   seeds: [110, 111, 112, 113, 114]
   success_criterion: "on every seed, both certified sequences have 0 hospitals significantly harmed beyond eps on loss (Holm) and 0 beyond delta on any group (Bonferroni-corrected lower bound), at every headline pair"
   test_side_calibration_significance: "lower confidence bound of |e_m| - |e_0| per group, normal approximation, Bonferroni over the hospital's tested groups"
+amendment_6:
+  date: 2026-11-04
+  note: "Output-only change to run_cert_full.py: saves per-group results (group error with and without the model, calibration gap and lower bound) and calibration bins. Certificate, candidates, seeds and tolerances unchanged; main results must reproduce exactly."
+  descriptive_only: "race_grp x age_band intersection (testable when >= 20 training deaths in the hospital) is evaluated on the test split but NOT used in certification; Bonferroni over the intersections tested in that hospital."
+  seeds: [110, 111, 112, 113, 114]
