@@ -1,0 +1,9 @@
+method,groups,cells,significantly_harmed_mean,point_above_delta_share
+Pooled,marginal groups (certified),895.8,2.0,0.1460173186709522
+Pooled,race x age (not certified),355.4,4.2,0.19758434067106298
+"Pooled, certified",marginal groups (certified),895.8,0.0,0.0
+"Pooled, certified",race x age (not certified),355.4,0.0,0.0028220034715268935
+Fine-tuning,marginal groups (certified),895.8,0.0,0.0031257543249358375
+Fine-tuning,race x age (not certified),355.4,0.0,0.007886396570630495
+"Fine-tuning, certified",marginal groups (certified),895.8,0.0,0.0
+"Fine-tuning, certified",race x age (not certified),355.4,0.0,0.0005524861878453038
