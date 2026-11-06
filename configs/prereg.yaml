@@ -84,3 +84,9 @@ amendment_9:
   harm_definition: "true loss difference above eps, or true |e_m| - |e_0| above delta in the overall population or any testable group"
   criterion: "certified-choice harm rate at most 5% in every cell; a cell is flagged if the rate exceeds 8.1% (5% plus two binomial standard errors at 200 repetitions)"
   earlier_simulation: "the normal-approximation versions (sim_phase_map_v1, sim_certified_selection_v1) are drafts and not reported"
+amendment_10:
+  date: 2026-11-06
+  note: "Model-class check, planned in the original design. Settings fixed now and not tuned. MLP: one hidden layer of 64 units, L2 1e-4, adam, early stopping on 10% of the training rows, max 30 epochs, batch 256 (local) and 2048 (pooled). GBM: HistGradientBoosting, 100 iterations, learning rate 0.1, depth 3, L2 1.0, no early stopping, local per hospital only. Candidates are clipped blends (c = 0.05) of the local model with the pooled model, same fixed sequence, betting loss test and paired calibration bound as amendment 5. Reference for harm is the local model of the same class."
+  seeds: "110-114; if the MLP runtime is prohibitive, seeds 110-112 only, stated in the paper"
+  reported: "hospitals harmed beyond eps on loss (Holm) and beyond delta on any group, for the unclipped pooled model and the certified choice; AUROC gain; hospitals moved off local; and how the local MLP and GBM compare with local logistic regression"
+  success_criterion: "certified pooled has 0 hospitals harmed beyond eps or delta at every headline pair, as for logistic regression"
