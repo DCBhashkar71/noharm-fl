@@ -90,3 +90,10 @@ amendment_10:
   seeds: "110-114; if the MLP runtime is prohibitive, seeds 110-112 only, stated in the paper"
   reported: "hospitals harmed beyond eps on loss (Holm) and beyond delta on any group, for the unclipped pooled model and the certified choice; AUROC gain; hospitals moved off local; and how the local MLP and GBM compare with local logistic regression"
   success_criterion: "certified pooled has 0 hospitals harmed beyond eps or delta at every headline pair, as for logistic regression"
+amendment_11:
+  date: 2026-11-06
+  deviation: "The first MLP run (seed 110, amendment 10 settings) gave a local MLP with mean test AUROC 0.5727 against 0.8162 for local logistic regression: local early stopping (10% validation, 3 flat epochs) stopped training almost immediately on small hospitals. Seed 110 results for the MLP are excluded and the file kept as model_mlp_v1_failed_seed110.csv."
+  change: "Local MLP only: no early stopping, 100 epochs, batch 128, L2 1e-3, learning rate 1e-3. Pooled MLP unchanged. The setting was fixed once after seeing the failure and not tuned on any seed's test results."
+  seeds: [111, 112, 113, 114]
+  rule: "If the local MLP's mean test AUROC is still more than 0.02 below local logistic regression, report the MLP as a weak local baseline and do not tune further."
+  gbm: "unchanged; seeds 110-114"

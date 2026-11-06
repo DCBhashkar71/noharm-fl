@@ -48,14 +48,17 @@ def cand(pl, ps, a):
     return np.clip(np.clip((1 - a) * pl + a * ps, pl - C, pl + C), 0.0, 1.0)
 
 
-def mlp(batch):
+def mlp(batch, local=False):
+    if local:    # amendment 11: local MLP, no early stopping, fixed once after the failed first run
+        return MLPClassifier(hidden_layer_sizes=(64,), alpha=1e-3, batch_size=128, max_iter=100, early_stopping=False,
+                             learning_rate_init=1e-3, random_state=seed)
     return MLPClassifier(hidden_layer_sizes=(64,), alpha=1e-4, batch_size=batch, max_iter=30, early_stopping=True,
                          validation_fraction=0.1, n_iter_no_change=3, random_state=seed)
 
 
 def fit_local(Xk, yk):
     if model == "mlp":
-        return mlp(256).fit(Xk, yk)
+        return mlp(256, local=True).fit(Xk, yk)
     return HistGradientBoostingClassifier(max_iter=100, learning_rate=0.1, max_depth=3, l2_regularization=1.0,
                                           early_stopping=False, random_state=seed).fit(Xk.toarray(), yk)
 
