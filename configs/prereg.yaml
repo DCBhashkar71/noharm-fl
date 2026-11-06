@@ -97,3 +97,11 @@ amendment_11:
   seeds: [111, 112, 113, 114]
   rule: "If the local MLP's mean test AUROC is still more than 0.02 below local logistic regression, report the MLP as a weak local baseline and do not tune further."
   gbm: "unchanged; seeds 110-114"
+amendment_12:
+  date: 2026-11-06
+  note: "ICU stress test on PhysioNet/CinC 2012 (sets A, B, C, 12,000 stays). Clients are the four ICU types, which are units pooled from several hospitals, not hospitals. SAPS-I and SOFA from the outcome files are not used. Features: age, gender, height, weight and min/max/mean/first/last/count of the 37 time series in the first 48 hours; counts filled with 0, other values median-imputed and standardised with pooled training statistics, clipped at +/-5, plus a missing indicator per variable."
+  models: "logistic regression C=0.1 (local and pooled); fine-tuning 5 L-BFGS iterations from the pooled model, L2 0.01"
+  splits: "50/25/25 stratified within ICU type and outcome; seeds 200-204"
+  groups: "gender (F, M) and age band (<55, 55-74, 75+); testable when >= 20 training deaths in the client"
+  certificate: "as amendment 5 (clipped blends c=0.05, betting loss test, paired calibration bound, fixed sequence), same three (eps, delta) pairs"
+  criterion: "0 of 20 client-seeds harmed beyond eps on loss (one-sided test, Bonferroni over 4 clients) or beyond delta on any group; reported as a small-sample stress test, not a replication of the hospital result"
