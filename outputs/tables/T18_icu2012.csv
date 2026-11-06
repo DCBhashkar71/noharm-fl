@@ -1,0 +1,10 @@
+eps,delta,method,client_seeds,loss_harm,cal_harm_sig,cal_point_above,nonlocal,mean_loss_diff,mean_auroc_gain
+0.005,0.01,Pooled,20,0,0,14,,-0.02438538789622896,0.025097708242939082
+0.005,0.01,"Pooled, certified",20,0,0,0,0.0,0.0,0.0
+0.005,0.01,"Fine-tuning, certified",20,0,0,0,0.0,0.0,0.0
+0.01,0.015,Pooled,20,0,0,7,,-0.02438538789622896,0.025097708242939082
+0.01,0.015,"Pooled, certified",20,0,0,0,0.0,0.0,0.0
+0.01,0.015,"Fine-tuning, certified",20,0,0,0,0.0,0.0,0.0
+0.02,0.02,Pooled,20,0,0,5,,-0.02438538789622896,0.025097708242939082
+0.02,0.02,"Pooled, certified",20,0,0,0,2.0,-0.001020138973913915,0.0009416246238863224
+0.02,0.02,"Fine-tuning, certified",20,0,0,0,0.0,0.0,0.0
