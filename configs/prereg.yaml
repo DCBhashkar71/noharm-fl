@@ -77,3 +77,10 @@ amendment_8:
   date: 2026-11-05
   note: "Sensitivity analysis with the APR severity of illness and risk of mortality fields added to the features (run_cert_full.py with the apr option). Everything else, including the certificate, candidates, seeds and tolerances, is unchanged. Reported as a sensitivity analysis; the headline remains the run without APR fields."
   seeds: [110, 111, 112, 113, 114]
+amendment_9:
+  date: 2026-11-06
+  note: "Simulation rerun with the actual certificate (clipped candidates c=0.05, betting loss test, paired calibration bound, fixed sequence, pooled-model blends 0.25-1.0), 200 repetitions per cell, synthetic hospitals with a binary group indicator whose intercept shifts by hospital. Target hospital is outside the pool. True harm is evaluated on 100,000 truth patients using known risks."
+  grid: "h in 0, 0.1, 0.2, 0.4, 0.8; n in 500, 2000, 8000, 30000; (eps, delta) in the three headline pairs"
+  harm_definition: "true loss difference above eps, or true |e_m| - |e_0| above delta in the overall population or any testable group"
+  criterion: "certified-choice harm rate at most 5% in every cell; a cell is flagged if the rate exceeds 8.1% (5% plus two binomial standard errors at 200 repetitions)"
+  earlier_simulation: "the normal-approximation versions (sim_phase_map_v1, sim_certified_selection_v1) are drafts and not reported"
