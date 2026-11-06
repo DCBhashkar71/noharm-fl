@@ -11,6 +11,8 @@ from noharm_fl.data.features import load, ROOT
 from noharm_fl.certify.bounds import clip_loss, betting_pvalue, fixed_sequence, calibration_gap_bound_clipped
 
 seed = int(sys.argv[1])
+with_apr = len(sys.argv) > 2 and sys.argv[2] == "apr"
+tag = "_apr" if with_apr else ""
 B, ALPHA, C = 5.0, 0.05, 0.05
 BLENDS = [0.25, 0.5, 0.75, 1.0]
 EPS = [0.005, 0.01, 0.02]
@@ -19,7 +21,7 @@ HEAD = list(zip(EPS, DELTA))              # headline (eps, delta) pairs
 LAM, FT_IT = 1e-5, 5
 GROUPS = ["gender", "age_band", "race_grp"]
 
-X, y, h, split, keep = load(seed)
+X, y, h, split, keep = load(seed, with_apr)
 df = pd.read_parquet(ROOT / "data/interim/sparcs_2022_adults.parquet").reset_index(drop=True)
 gcols = {g: df[g].values for g in GROUPS}
 gcols["race_x_age"] = (df["race_grp"].astype(str) + "|" + df["age_band"].astype(str)).values
@@ -74,6 +76,7 @@ def bin_rows(k, grp, lev, mname, p, yy, nb):
 
 
 t0 = time.time()
+print(f"seed {seed}, features {'WITH' if with_apr else 'without'} APR fields", flush=True)
 pooled = LogisticRegression(C=1.0, max_iter=300).fit(X[tr], y[tr])
 w_pool = np.append(pooled.coef_[0], pooled.intercept_[0])
 print(f"pooled model done in {time.time() - t0:.0f}s", flush=True)
@@ -117,7 +120,7 @@ for k in keep:
     for name, m in (("cert", c_), ("test", t_)):
         PR[name] = {"local": loc.predict_proba(X[m])[:, 1], "pool": pooled.predict_proba(X[m])[:, 1], "ft": expit(Xb[m] @ w_ft)}
 
-    # certification side (unchanged)
+    # certification side
     yc = y[c_].astype(float); ic = idx_of(c_, tg); pl_c = PR["cert"]["local"]
     base_c = clip_loss(pl_c, yc, B)
     lossp, calmax = {}, {}
@@ -177,7 +180,7 @@ for k in keep:
             r[f"{pre}__{m_}"] = v
     rows.append(r)
 
-    # NEW: per-group rows (marginal groups tested by the certificate; intersections descriptive only)
+    # per-group rows (marginal groups tested by the certificate; intersections descriptive only)
     zi = stats.norm.ppf(1 - 0.025 / max(len(ig), 1))
     for kind, glist, zz in (("marginal", tg, zc), ("intersect", ig, zi)):
         ii = it if kind == "marginal" else idx_of(t_, ig)
@@ -190,18 +193,18 @@ for k in keep:
                 grows.append((seed, k, kind, g, lev, len(ix), int(yt[ix].sum()), mname, meta[0], meta[1],
                               (pl_t[ix] - yt[ix]).mean(), (pt[ix] - yt[ix]).mean(), point, lb))
 
-    # NEW: calibration bins for reliability curves
+    # calibration bins for reliability curves
     for mname in ("local", "pool_full", "cert_pool_e0.01_d0.015", "cert_ft_e0.01_d0.015"):
         bins += bin_rows(k, "overall", "all", mname, PT[mname], yt, 10)
         for (g, lev), ix in zip(tg[1:], it[1:]):
             bins += bin_rows(k, g, lev, mname, PT[mname][ix], yt[ix], 5)
 
 res = pd.DataFrame(rows)
-res.to_csv(ROOT / f"outputs/tables/cert_full_seed{seed}.csv", index=False)
+res.to_csv(ROOT / f"outputs/tables/cert_full_seed{seed}{tag}.csv", index=False)
 pd.DataFrame(grows, columns=["seed", "hospital", "kind", "var", "level", "n_test", "deaths_test", "method", "eps", "delta",
-                             "e0", "em", "gap_point", "gap_lb"]).to_csv(ROOT / f"outputs/tables/cert_groups_seed{seed}.csv", index=False)
+                             "e0", "em", "gap_point", "gap_lb"]).to_csv(ROOT / f"outputs/tables/cert_groups_seed{seed}{tag}.csv", index=False)
 pd.DataFrame(bins, columns=["seed", "hospital", "var", "level", "method", "bin", "n", "mean_p", "mean_y"]).to_csv(
-    ROOT / f"outputs/tables/cert_bins_seed{seed}.csv", index=False)
+    ROOT / f"outputs/tables/cert_bins_seed{seed}{tag}.csv", index=False)
 
 
 def loss_mask(diff, se, eps):
@@ -219,7 +222,8 @@ for eps, delta in HEAD:
         out.append((eps, delta, label, int(lm.sum()), int(cm.sum()), int((lm | cm).sum()),
                     int((res[f"{pre}__gapmax"] > delta).sum()), nl, res[f"{pre}__diff"].mean(),
                     (res[f"{pre}__auroc"] - res["local__auroc"]).mean()))
-print(f"seed {seed}: {len(res)} hospitals, mean groups tested {res['n_groups_tested'].mean():.1f}")
+print(f"seed {seed}{tag}: {len(res)} hospitals, mean groups tested {res['n_groups_tested'].mean():.1f}, "
+      f"local mean AUROC {res['local__auroc'].mean():.4f}")
 print(pd.DataFrame(out, columns=["eps", "delta", "method", "loss_harm", "cal_harm_sig", "either_sig", "cal_point_above",
                                  "nonlocal", "mean_loss_diff", "auroc_gain"]).round(5).to_string())
 print(f"total {time.time() - t0:.0f}s")

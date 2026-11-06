@@ -73,3 +73,7 @@ amendment_7:
   data_2023: "adults, F/M, excluding Calvary; 1,822,591 rows, 50,983 deaths, 205 hospitals; adult death rate 2.80% against 3.16% in 2022"
   interpretation: "The certificate assumes the same patient population, so this is a robustness check under shift, not a validation of the guarantee. No pass/fail criterion."
   reported: "hospitals harmed beyond eps on loss (Holm), beyond delta on any group (Bonferroni lower bound and point estimate), for unclipped pooled, unclipped fine-tuning, certified pooled and certified fine-tuned, at the three headline pairs, with the 2022 test results alongside"
+amendment_8:
+  date: 2026-11-05
+  note: "Sensitivity analysis with the APR severity of illness and risk of mortality fields added to the features (run_cert_full.py with the apr option). Everything else, including the certificate, candidates, seeds and tolerances, is unchanged. Reported as a sensitivity analysis; the headline remains the run without APR fields."
+  seeds: [110, 111, 112, 113, 114]
