@@ -105,3 +105,9 @@ amendment_12:
   groups: "gender (F, M) and age band (<55, 55-74, 75+); testable when >= 20 training deaths in the client"
   certificate: "as amendment 5 (clipped blends c=0.05, betting loss test, paired calibration bound, fixed sequence), same three (eps, delta) pairs"
   criterion: "0 of 20 client-seeds harmed beyond eps on loss (one-sided test, Bonferroni over 4 clients) or beyond delta on any group; reported as a small-sample stress test, not a replication of the hospital result"
+amendment_13:
+  date: 2026-11-06
+  note: "Leave-one-hospital-out and new-hospital protocol. For each of the 126 analysed hospitals, the pooled logistic model is trained on the training rows of all other hospitals (hospital k excluded). Hospital k fits its own local model, runs the certified selection (clipped blends c=0.05, betting loss test, paired calibration bound, fixed sequence, same three headline pairs) on its own certification split against the leave-out pooled model, and is evaluated on its test split. Seeds 110-114; splits as before."
+  reported: "unclipped leave-out pooled model and certified choice: hospitals harmed beyond eps on loss (Holm) and beyond delta on any group (Bonferroni lower bound and point estimate), hospitals moved off local, mean loss difference and AUROC gain, and the same quantities for the ordinary pooled model for comparison"
+  interpretation: "The leave-out pooled model is a generalisation check for the unclipped model. The certified choice is the new-hospital protocol, covered by the guarantee because the hospital's certification data never touched the pooled model."
+  criterion: "certified choice has 0 hospitals harmed beyond eps or delta on every seed and headline pair"
