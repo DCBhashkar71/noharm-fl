@@ -11,8 +11,13 @@ from noharm_fl.data.features import load, ROOT
 from noharm_fl.certify.bounds import clip_loss, betting_pvalue, fixed_sequence, calibration_gap_bound_clipped
 
 seed = int(sys.argv[1])
-with_apr = len(sys.argv) > 2 and sys.argv[2] == "apr"
-tag = "_apr" if with_apr else ""
+opts = sys.argv[2:]
+with_apr = "apr" in opts
+cut = 100
+for a in opts:
+    if a.startswith("cut"):
+        cut = int(a[3:])
+tag = ("_apr" if with_apr else "") + (f"_cut{cut}" if cut != 100 else "")
 B, ALPHA, C = 5.0, 0.05, 0.05
 BLENDS = [0.25, 0.5, 0.75, 1.0]
 EPS = [0.005, 0.01, 0.02]
@@ -21,7 +26,7 @@ HEAD = list(zip(EPS, DELTA))              # headline (eps, delta) pairs
 LAM, FT_IT = 1e-5, 5
 GROUPS = ["gender", "age_band", "race_grp"]
 
-X, y, h, split, keep = load(seed, with_apr)
+X, y, h, split, keep = load(seed, with_apr, cut)
 df = pd.read_parquet(ROOT / "data/interim/sparcs_2022_adults.parquet").reset_index(drop=True)
 gcols = {g: df[g].values for g in GROUPS}
 gcols["race_x_age"] = (df["race_grp"].astype(str) + "|" + df["age_band"].astype(str)).values
@@ -76,7 +81,7 @@ def bin_rows(k, grp, lev, mname, p, yy, nb):
 
 
 t0 = time.time()
-print(f"seed {seed}, features {'WITH' if with_apr else 'without'} APR fields", flush=True)
+print(f"seed {seed}, features {'WITH' if with_apr else 'without'} APR fields, minimum deaths {cut}", flush=True)
 pooled = LogisticRegression(C=1.0, max_iter=300).fit(X[tr], y[tr])
 w_pool = np.append(pooled.coef_[0], pooled.intercept_[0])
 print(f"pooled model done in {time.time() - t0:.0f}s", flush=True)

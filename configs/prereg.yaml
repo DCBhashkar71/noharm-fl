@@ -111,3 +111,7 @@ amendment_13:
   reported: "unclipped leave-out pooled model and certified choice: hospitals harmed beyond eps on loss (Holm) and beyond delta on any group (Bonferroni lower bound and point estimate), hospitals moved off local, mean loss difference and AUROC gain, and the same quantities for the ordinary pooled model for comparison"
   interpretation: "The leave-out pooled model is a generalisation check for the unclipped model. The certified choice is the new-hospital protocol, covered by the guarantee because the hospital's certification data never touched the pooled model."
   criterion: "certified choice has 0 hospitals harmed beyond eps or delta on every seed and headline pair"
+amendment_14:
+  date: 2026-11-07
+  note: "Size-cutoff sensitivity planned in the original design: the full certificate rerun with minimum hospital deaths 50 (142 hospitals) and 200 (99 hospitals) in addition to 100 (126). run_cert_full.py gets a cut option. Seeds 110-114, everything else unchanged."
+  reported: "hospitals harmed beyond eps or delta, hospitals moved off local, mean loss difference and AUROC gain, for the unclipped pooled model and both certified sequences, by cutoff"
