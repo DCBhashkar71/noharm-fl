@@ -1,0 +1,13 @@
+loss_test,eps,delta,method,either,point_above,nonlocal_,mean_loss_diff,auroc_gain,max_either_over_seeds
+betting (primary),0.005,0.01,"Pooled, certified",0.0,0.0,17.0,1.4747744261643891e-05,0.00021397948109660712,0
+betting (primary),0.005,0.01,"Fine-tuning, certified",0.0,0.0,17.4,3.8813030366262986e-07,-1.3904895403231486e-05,0
+betting (primary),0.01,0.015,"Pooled, certified",0.0,0.0,55.8,0.00011106677410847771,0.0009705834130752737,0
+betting (primary),0.01,0.015,"Fine-tuning, certified",0.0,0.0,54.4,-4.685512717463784e-05,0.0005169588665524827,0
+betting (primary),0.02,0.02,"Pooled, certified",0.0,0.0,99.6,6.860350781872653e-05,0.0038244603084363234,0
+betting (primary),0.02,0.02,"Fine-tuning, certified",0.0,0.0,99.8,-0.00029582576729931035,0.002343428703671758,0
+empirical-Bernstein,0.005,0.01,"Pooled, certified",0.0,0.0,0.0,0.0,0.0,0
+empirical-Bernstein,0.005,0.01,"Fine-tuning, certified",0.0,0.0,0.0,0.0,0.0,0
+empirical-Bernstein,0.01,0.015,"Pooled, certified",0.0,0.0,3.0,6.642373186201068e-06,-3.689549780723785e-06,0
+empirical-Bernstein,0.01,0.015,"Fine-tuning, certified",0.0,0.0,3.4,-3.0430480164801487e-06,4.026472833404183e-06,0
+empirical-Bernstein,0.02,0.02,"Pooled, certified",0.0,0.0,30.6,0.00015413819414370088,0.000237848646419674,0
+empirical-Bernstein,0.02,0.02,"Fine-tuning, certified",0.0,0.0,32.0,-1.4430520859151088e-05,0.0002372029793163203,0

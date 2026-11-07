@@ -85,7 +85,7 @@ t0 = time.time()
 pooled = LogisticRegression(C=LOGC, max_iter=500).fit(Xf[tr], y[tr])
 w_pool = np.append(pooled.coef_[0], pooled.intercept_[0])
 
-rows = []
+rows, diag = [], []
 for k in sorted(np.unique(h)):
     mk = h == k
     a_, c_, t_ = mk & tr, mk & ce, mk & te
@@ -123,6 +123,17 @@ for k in sorted(np.unique(h)):
             for eps in EPS:
                 lossp[(src, j, eps)] = betting_pvalue(dl, eps, -B, B, ALPHA)
             calmax[(src, j)] = max(calibration_gap_bound_clipped(pc[i], pl_c[i], yc[i], C, ALPHA) for i in ic)
+
+    # diagnostic output (amendment 19): which test blocks approval, per candidate and group
+    for src in ("pool", "ft"):
+        for j, a in enumerate(BLENDS):
+            pc_ = cand(pl_c, PR["cert"][src], a)
+            for gi, (gname, glev) in enumerate(tg):
+                diag.append((seed, int(k), src, a, gname, "" if glev is None else str(glev), len(ic[gi]), int(yc[ic[gi]].sum()),
+                             calibration_gap_bound_clipped(pc_[ic[gi]], pl_c[ic[gi]], yc[ic[gi]], C, ALPHA),
+                             float(np.mean(clip_loss(pc_, yc, B) - base_c)),
+                             lossp[(src, j, 0.005)], lossp[(src, j, 0.01)], lossp[(src, j, 0.02)]))
+
     chosen = {}
     for src in ("pool", "ft"):
         for eps, delta in HEAD:
@@ -164,6 +175,9 @@ for k in sorted(np.unique(h)):
 
 res = pd.DataFrame(rows)
 res.to_csv(ROOT / f"outputs/tables/icu2012_seed{seed}.csv", index=False)
+pd.DataFrame(diag, columns=["seed", "icu_type", "source", "blend", "group", "level", "n_cert", "deaths_cert", "cal_bound",
+                            "loss_diff_cert", "p_eps0.005", "p_eps0.01", "p_eps0.02"]).to_csv(
+    ROOT / f"outputs/tables/icu2012_diag_seed{seed}.csv", index=False)
 
 out = []
 for _, r in res.iterrows():

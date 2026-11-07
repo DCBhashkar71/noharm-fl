@@ -137,3 +137,7 @@ amendment_18:
   note: "Bound sensitivity: the full certificate (amendment 5) rerun with the empirical-Bernstein loss test (pass if its upper bound on the mean paired loss difference is at most eps, alpha = 0.05) in place of the betting test. Calibration bounds, candidates, clipping, seeds 110-114 and the three headline pairs unchanged. run_cert_full.py gets an eb option."
   reported: "hospitals harmed beyond eps or delta, hospitals moved off local, mean loss difference and AUROC gain for certified pooled and certified fine-tuned, betting versus empirical-Bernstein"
   criterion: "0 hospitals harmed under both bounds on every seed; the number moved off local is reported as the cost of the more conservative bound"
+amendment_19:
+  date: 2026-11-07
+  note: "ICU diagnostic. Output-only change to run_icu2012.py: for each ICU unit, seed, source (pooled, fine-tuned), blend and headline pair, save whether the loss test passes, the loss-test result at each eps, and the calibration upper bound for the overall population and each tested group (with group size and training deaths). Certificate, features, settings and seeds 200-204 unchanged; the main ICU results must reproduce exactly."
+  purpose: "Identify which test (loss or group calibration) blocks approval of pooling in the ICU data, to word the limitation."
