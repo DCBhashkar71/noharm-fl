@@ -8,16 +8,18 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import roc_auc_score
 from statsmodels.stats.multitest import multipletests
 from noharm_fl.data.features import load, ROOT
-from noharm_fl.certify.bounds import clip_loss, betting_pvalue, fixed_sequence, calibration_gap_bound_clipped
+from noharm_fl.certify.bounds import clip_loss, betting_pvalue, eb_pvalue, fixed_sequence, calibration_gap_bound_clipped
 
 seed = int(sys.argv[1])
 opts = sys.argv[2:]
 with_apr = "apr" in opts
+use_eb = "eb" in opts
+loss_test = eb_pvalue if use_eb else betting_pvalue
 cut = 100
 for a in opts:
     if a.startswith("cut"):
         cut = int(a[3:])
-tag = ("_apr" if with_apr else "") + (f"_cut{cut}" if cut != 100 else "")
+tag = ("_apr" if with_apr else "") + (f"_cut{cut}" if cut != 100 else "") + ("_eb" if use_eb else "")
 B, ALPHA, C = 5.0, 0.05, 0.05
 BLENDS = [0.25, 0.5, 0.75, 1.0]
 EPS = [0.005, 0.01, 0.02]
@@ -81,7 +83,8 @@ def bin_rows(k, grp, lev, mname, p, yy, nb):
 
 
 t0 = time.time()
-print(f"seed {seed}, features {'WITH' if with_apr else 'without'} APR fields, minimum deaths {cut}", flush=True)
+print(f"seed {seed}, features {'WITH' if with_apr else 'without'} APR fields, minimum deaths {cut}, "
+      f"loss test: {'empirical-Bernstein' if use_eb else 'betting'}", flush=True)
 pooled = LogisticRegression(C=1.0, max_iter=300).fit(X[tr], y[tr])
 w_pool = np.append(pooled.coef_[0], pooled.intercept_[0])
 print(f"pooled model done in {time.time() - t0:.0f}s", flush=True)
@@ -134,7 +137,7 @@ for k in keep:
             pc = cand(pl_c, PR["cert"][src], a)
             dl = clip_loss(pc, yc, B) - base_c
             for eps in EPS:
-                lossp[(src, j, eps)] = betting_pvalue(dl, eps, -B, B, ALPHA)
+                lossp[(src, j, eps)] = loss_test(dl, eps, -B, B, ALPHA)
             calmax[(src, j)] = max(calibration_gap_bound_clipped(pc[i], pl_c[i], yc[i], C, ALPHA) for i in ic)
     chosen = {}
     for src in ("pool", "ft"):

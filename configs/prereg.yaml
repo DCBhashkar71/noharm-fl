@@ -132,3 +132,8 @@ amendment_17:
   seeds: [110, 111, 112, 113, 114]
   not_run: "AFL, FedMinMax, FedIDA, Fair and Consistent FL, MaxFL, and federated multicalibration post-processing are not implemented; listed as a limitation"
   formula_check: "q-FFL objective taken from memory of arXiv 1905.10497, to be verified against Section 3.2"
+amendment_18:
+  date: 2026-11-07
+  note: "Bound sensitivity: the full certificate (amendment 5) rerun with the empirical-Bernstein loss test (pass if its upper bound on the mean paired loss difference is at most eps, alpha = 0.05) in place of the betting test. Calibration bounds, candidates, clipping, seeds 110-114 and the three headline pairs unchanged. run_cert_full.py gets an eb option."
+  reported: "hospitals harmed beyond eps or delta, hospitals moved off local, mean loss difference and AUROC gain for certified pooled and certified fine-tuned, betting versus empirical-Bernstein"
+  criterion: "0 hospitals harmed under both bounds on every seed; the number moved off local is reported as the cost of the more conservative bound"
