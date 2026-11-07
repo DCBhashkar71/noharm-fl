@@ -1,0 +1,7 @@
+eps,delta,sequence,nonlocal_mean,smallest_certified_n_train,median_certified_n_train
+0.005,0.01,pool,17,10255,14108.0
+0.005,0.01,ft,17,11208,14108.0
+0.01,0.015,pool,55,5044,9541.0
+0.01,0.015,ft,54,5745,9541.0
+0.02,0.02,pool,99,2449,6942.0
+0.02,0.02,ft,99,2908,6942.0

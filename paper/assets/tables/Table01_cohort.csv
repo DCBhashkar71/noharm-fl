@@ -1,0 +1,6 @@
+step,discharges,deaths,hospitals,death_rate
+SPARCS 2022 inpatient discharges (raw),2103433,59406,,0.02824240182596736
+With a facility ID,2098043,59339,206.0,0.028283023751181458
+"Excluding palliative facility (Calvary, 2 IDs)",2095793,57403,204.0,0.027389632468473746
+"Adults 18+, sex F or M (analysis cohort)",1794116,56609,204.0,0.031552586343357954
+Hospitals with >= 100 deaths (main experiments),1653315,54660,126.0,0.03306085047314033

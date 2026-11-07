@@ -1,0 +1,13 @@
+group_variable,method,cells_tested,significantly_harmed_mean,significantly_harmed_max,point_above_delta_mean,point_above_delta_share
+gender,Pooled,251.8,0.2,1,31.8,0.12629070691024621
+gender,"Pooled, certified",251.8,0.0,0,0.0,0.0
+gender,Fine-tuning,251.8,0.0,0,0.8,0.003177124702144559
+gender,"Fine-tuning, certified",251.8,0.0,0,0.0,0.0
+age_band,Pooled,262.4,1.8,2,52.0,0.19817073170731708
+age_band,"Pooled, certified",262.4,0.0,0,0.0,0.0
+age_band,Fine-tuning,262.4,0.0,0,1.6,0.006097560975609757
+age_band,"Fine-tuning, certified",262.4,0.0,0,0.0,0.0
+race_grp,Pooled,255.6,0.0,0,27.4,0.10719874804381846
+race_grp,"Pooled, certified",255.6,0.0,0,0.0,0.0
+race_grp,Fine-tuning,255.6,0.0,0,0.2,0.000782472613458529
+race_grp,"Fine-tuning, certified",255.6,0.0,0,0.0,0.0

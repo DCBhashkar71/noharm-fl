@@ -1,0 +1,5 @@
+method,bytes_per_hospital_total,bytes_per_round_or_message
+"FedAvg / FedProx, 30 rounds (logistic regression, 53 coefficients, 8-byte floats, up and down)",25440,848
+Fine-tuning (one download of the pooled model),424,424
+"Certificate, run at the hospital on its own certification split (no extra communication beyond the model download)",424,424
+"Certificate, central version (2 scalars per candidate and group; 4 candidates, 8 groups)",512,512

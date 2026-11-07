@@ -3,6 +3,6 @@ seeds,used for,status
 100,First loss-only run of the final code,Exploratory (amendment 2)
 101-104,"Loss-only harm study and baselines (pooled, blends, certified, FedAvg, FedProx, fine-tuning, recalibration)","Original confirmatory (amendments 2, 3)"
 105-109,Certified fine-tuned variant and baseline table (loss only),Confirmatory for amendment 4
-110-114,"Full certificate (loss and calibration); subgroup, intersectional, APR, temporal, model-class (MLP 111-114) and leave-one-hospital-out analyses","Headline confirmatory (amendments 5-8, 10, 11, 13); same splits across analyses, so not independent"
-200-204,ICU 2012 stress test,"Amendment 12; resamples splits of the same 12,000 stays"
+110-114,"Full certificate (loss and calibration) and all later analyses on the same splits: subgroup, intersectional, APR, temporal, size cutoffs, bound choice, extra metrics, participation, Ditto and q-FFL, model class (MLP 111-114), leave-one-hospital-out","Headline confirmatory (amendments 5-8, 10, 11, 13-18); same splits across analyses, so not independent"
+200-204,ICU 2012 stress test and ICU diagnostic,"Amendments 12 and 19; resamples splits of the same 12,000 stays"
 simulation 0-199,Simulation with the actual certificate,Amendment 9

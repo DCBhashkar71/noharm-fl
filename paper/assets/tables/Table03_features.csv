@@ -1,0 +1,14 @@
+role,variable,definition,type
+Outcome,y,patient_disposition equals Expired (in-hospital death),binary
+Feature,age_group,"0-17 excluded; 18-29, 30-49, 50-69, 70+",categorical
+Feature,gender,F or M (unknown excluded),categorical
+Feature,race,"White, Black/African American, Other Race, Multi-racial",categorical
+Feature,ethnicity,"Spanish/Hispanic, Not Span/Hispanic, Multi-ethnic, Unknown",categorical
+Feature,type_of_admission,"Emergency, Elective, Urgent, Newborn, Trauma, Not Available",categorical
+Feature,emergency_department_indicator,Y or N,binary
+Feature,payment_typology_1,Primary payer category,categorical
+Feature,dx_sys,First 3 characters of the CCSR principal diagnosis code (body system),categorical
+Sensitivity only,"apr_severity_of_illness_code, apr_risk_of_mortality",Grouper outputs; used only in the with-APR sensitivity run,ordinal
+Excluded,"length_of_stay, total_charges, total_costs",Depend on the outcome; never used,numeric
+Group (certification),"gender; age_band (18-49, 50-69, 70+); race_grp (White, Black/African American, Other/Multi-racial)",Fixed before certification data were seen; tested when >= 20 training deaths in the hospital,categorical
+Group (descriptive only),race_grp x age_band,Not used in certification,categorical

@@ -1,0 +1,5 @@
+,train_stays,train_deaths,test_deaths,local_auroc,pooled_loss_diff,pooled_auroc_gain,seeds_gap_above_delta001,certified_pooled_nonlocal_of15,certified_ft_nonlocal_of15
+CCU,884,112,56,0.7927,-0.041,0.0204,4,0,0
+CSRU,1264,61,31,0.8443,-0.0311,0.0508,3,0,0
+MICU,2146,426,213,0.8112,-0.0181,0.02,3,1,0
+SICU,1704,254,127,0.8718,-0.0073,0.0091,4,1,0

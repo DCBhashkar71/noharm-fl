@@ -1,0 +1,27 @@
+item,value,type
+Python,3.14.3,software
+Operating system,Windows-11-10.0.26300-SP0,software
+numpy,2.5.4,software
+pandas,3.0.6,software
+scipy,1.18.1,software
+scikit-learn,1.9.1,software
+statsmodels,0.15.0,software
+pyarrow,26.0.0,software
+matplotlib,3.11.2,software
+pyyaml,6.0.3,software
+"Logistic regression (SPARCS, local, pooled)","L2, C = 1.0, max 300 iterations (scikit-learn lbfgs)",fixed setting
+Fine-tuning,"5 L-BFGS iterations from the pooled coefficients on the hospital's training split, L2 1e-5",fixed setting
+FedAvg / FedProx,"30 rounds, 10 local L-BFGS iterations per round, FedProx mu 0.01, L2 1e-5; not tuned",fixed setting
+Loss,"log loss clipped to [0, 5]; predictions clipped to [1e-6, 1 - 1e-6]",fixed setting
+Candidate clipping,candidate prediction clipped to local prediction +/- 0.05,fixed setting
+Loss test,"betting bound (Waudby-Smith and Ramdas style), alpha = 0.05, one-sided; empirical-Bernstein as the secondary bound",fixed setting
+Calibration bound,paired design: empirical-Bernstein bounds at alpha/4 each on local error and on the mean prediction difference; worst case over the box,fixed setting
+Fixed sequence,"blends 0.25, 0.5, 0.75, 1.0; stop at first failure",fixed setting
+Tolerances (headline pairs),"(eps, delta) = (0.005, 0.01), (0.01, 0.015), (0.02, 0.02)",fixed setting
+Testable group rule,>= 20 training deaths in the hospital,fixed setting
+Hospital inclusion,>= 100 deaths among adults (126 of 204 hospitals),fixed setting
+Splits,"50/25/25 stratified by hospital and outcome; seeds 110-114 (main), 105-109, 100-104 (earlier stages), 200-204 (ICU)",fixed setting
+MLP,"one hidden layer of 64 units; local: no early stopping, 100 epochs, batch 128, L2 1e-3; pooled: early stopping, 30 epochs, batch 2048",fixed setting
+Gradient boosting,"HistGradientBoosting, 100 iterations, learning rate 0.1, depth 3, L2 1.0",fixed setting
+ICU 2012 logistic regression,"C = 0.1; fine-tuning L2 1e-2; features standardised on training rows, clipped at +/- 5",fixed setting
+Multiple testing,Holm across hospitals for loss; Bonferroni across a hospital's tested groups for calibration,fixed setting
