@@ -122,3 +122,7 @@ amendment_15:
   outcome: "pooled loss difference vs local on the test split (point estimate): pooled better if negative"
   criterion: "the condition is reported as supported if the primary score predicts 'pooled better' with mean AUROC >= 0.65 over the five seeds; otherwise it is reported as not supported by this simple version"
   caveat: "h_k from a regularised local fit is biased upward for small hospitals; reported as a diagnostic, not a theorem"
+amendment_16:
+  date: 2026-11-07
+  note: "Remaining metrics and the simultaneous guarantee. (a) Equalized-odds gap: for each hospital and the methods local, pooled, certified pooled (eps 0.01, delta 0.015), the larger of the absolute difference in true-positive rate and in false-positive rate between the two sex groups at the threshold that flags the top 10% of the hospital's test patients by predicted risk. (b) Communication cost: bytes per round and total for FedAvg/FedProx (30 rounds x 53 coefficients as 8-byte floats up and down per hospital) and for the certificate (two scalars per candidate). (c) Paired test across hospitals: Wilcoxon signed-rank test of certified vs local and pooled vs local loss differences, over the 126 hospitals, per seed. (d) Simultaneous guarantee: the certification step rerun with alpha divided by the number of hospitals (Bonferroni), reporting how many hospitals are still moved off local."
+  seeds: "110-114; no change to the certificate or tolerances for (a)-(c)"
