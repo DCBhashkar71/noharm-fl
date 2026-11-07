@@ -115,3 +115,10 @@ amendment_14:
   date: 2026-11-07
   note: "Size-cutoff sensitivity planned in the original design: the full certificate rerun with minimum hospital deaths 50 (142 hospitals) and 200 (99 hospitals) in addition to 100 (126). run_cert_full.py gets a cut option. Seeds 110-114, everything else unchanged."
   reported: "hospitals harmed beyond eps or delta, hospitals moved off local, mean loss difference and AUROC gain, for the unclipped pooled model and both certified sequences, by cutoff"
+amendment_15:
+  date: 2026-11-07
+  note: "Constrained NoHarm-FL training (C3) is dropped: the certificate works on plain pooled and fine-tuned models, as the plan's own rule requires. Participation condition (C4) tested as an empirical diagnostic on the 126 hospitals, seeds 110-114."
+  definition: "h_k = Euclidean distance between hospital k's local and the pooled logistic coefficients (both fitted as in the main analysis, C = 1); d = number of coefficients including the intercept; n_k and N = training rows of the hospital and of the pool. Primary score s_k = d/n_k - d/N - h_k^2. Secondary score replaces rows by training deaths."
+  outcome: "pooled loss difference vs local on the test split (point estimate): pooled better if negative"
+  criterion: "the condition is reported as supported if the primary score predicts 'pooled better' with mean AUROC >= 0.65 over the five seeds; otherwise it is reported as not supported by this simple version"
+  caveat: "h_k from a regularised local fit is biased upward for small hospitals; reported as a diagnostic, not a theorem"
