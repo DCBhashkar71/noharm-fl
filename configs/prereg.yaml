@@ -141,3 +141,9 @@ amendment_19:
   date: 2026-11-07
   note: "ICU diagnostic. Output-only change to run_icu2012.py: for each ICU unit, seed, source (pooled, fine-tuned), blend and headline pair, save whether the loss test passes, the loss-test result at each eps, and the calibration upper bound for the overall population and each tested group (with group size and training deaths). Certificate, features, settings and seeds 200-204 unchanged; the main ICU results must reproduce exactly."
   purpose: "Identify which test (loss or group calibration) blocks approval of pooling in the ICU data, to word the limitation."
+amendment_20:
+  date: 2026-11-08
+  note: "Additional fairness baselines to reduce missing comparisons. AFL (Mohri et al., ICML 2019): min over w of max over lambda in Lambda of sum_k lambda_k F_k(w), hospitals as clients, Lambda = simplex (floor 0) or simplex with lambda_k >= 0.5/K (floor 0.5). FedMinMax objective (Papadaki et al., FAccT 2022): minimise the worst demographic-group risk, groups = sex x age band x race group, pooled across hospitals; objective only, not the paper's algorithm. Both solved by 50 rounds of best-response weighted logistic fits (10 L-BFGS iterations, L2 1e-5) with exponentiated-gradient weight updates (step 10), reporting the mean of the last 25 iterates. Federated multicalibration post-processing (own construction): pooled model recalibrated by shifts per (group level, risk bin) fitted from pooled training cell statistics, 10 bins, 3 sweeps, cells >= 200 rows, shift shrunk by n/(n+200). Certified variants as in amendment 17."
+  seeds: [110, 111, 112, 113, 114]
+  not_yet_run: "MaxFL, FedIDA, Fair and Consistent FL (definitions to be read first)"
+  checks: "training-set worst-hospital and worst-group loss reported for pooled and each model"
