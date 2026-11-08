@@ -138,8 +138,11 @@ for fl in FLOORS:
           f"-> {group_losses(W[f'afl{fl:g}'], gid_h, nk_h).max():.4f}; mean training loss "
           f"{np.mean(np.logaddexp(0, Xt @ W[f'afl{fl:g}']) - yt_ * (Xt @ W[f'afl{fl:g}'])):.5f}", flush=True)
 W["fedminmax"] = minimax(gid_d, 0.0, w_pool)
-print(f"FedMinMax objective: done at {time.time() - t0:.0f}s; worst-group TRAINING loss pooled {group_losses(w_pool, gid_d, nk_d).max():.4f} "
-      f"-> {group_losses(W['fedminmax'], gid_d, nk_d).max():.4f}", flush=True)
+zf = Xt @ W["fedminmax"]
+gl_p, gl_f = group_losses(w_pool, gid_d, nk_d), group_losses(W["fedminmax"], gid_d, nk_d)
+print(f"FedMinMax objective: done at {time.time() - t0:.0f}s; worst-group TRAINING loss pooled {gl_p.max():.4f} -> {gl_f.max():.4f}; "
+      f"mean training loss {np.mean(np.logaddexp(0, zf) - yt_ * zf):.5f}", flush=True)
+print("  five highest-loss groups, pooled -> fedminmax: " + ", ".join(f"{a:.3f}>{b:.3f}" for a, b in sorted(zip(gl_p, gl_f), reverse=True)[:5]), flush=True)
 gtr = {g: gcols[g][idx] for g in GROUPS}
 edges, shifts = fit_multicalib(pooled.decision_function(X[tr]), gtr, y[idx])
 print(f"multicalibration fitted at {time.time() - t0:.0f}s with {sum(int((d != 0).sum()) for _, _, d in shifts)} non-zero cell shifts", flush=True)
