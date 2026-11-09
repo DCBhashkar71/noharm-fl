@@ -53,3 +53,5 @@ table,Table26,icu2012_by_unit,T18b_icu2012_by_unit
 table,Table27,icu_diagnostic,T_icu_diagnostic
 table,Table28,price_of_no_harm_grid,F12_price_of_no_harm_grid
 table,Table29,software_settings,T21_software_settings
+figure,Fig26,more_baselines,fig26_more_baselines
+table,Table30,more_baselines,T_more_baselines
