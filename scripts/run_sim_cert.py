@@ -5,6 +5,9 @@ from noharm_fl.data.features import ROOT
 from noharm_fl.certify.bounds import clip_loss, betting_pvalue, calibration_gap_bound_clipped
 
 r_a, r_b = int(sys.argv[1]), int(sys.argv[2])
+SCEN = sys.argv[3] if len(sys.argv) > 3 else "base"      # base | icpt | shift
+assert SCEN in ("base", "icpt", "shift")
+SHIFT = 0.3 if SCEN == "shift" else 0.0
 D, B0, K, ALPHA, B, C = 10, -3.8, 30, 0.05, 5.0, 0.05
 HS = [0.0, 0.1, 0.2, 0.4, 0.8]
 NS = [500, 2000, 8000, 30000]
@@ -21,9 +24,9 @@ def unit(rng):
     u = rng.normal(size=D); return u / np.linalg.norm(u)
 
 
-def gen(rng, theta, gam, n, with_y=True):
+def gen(rng, theta, gam, n, with_y=True, b0=B0):
     X = rng.normal(size=(n, D)); g = (rng.random(n) < 0.3).astype(float)
-    q = 1 / (1 + np.exp(-(B0 + X @ theta + gam * g)))
+    q = 1 / (1 + np.exp(-(b0 + X @ theta + gam * g)))
     Xg = np.column_stack([X, g])
     return (Xg, q, (rng.random(n) < q).astype(int)) if with_y else (Xg, q)
 
@@ -43,14 +46,17 @@ for rep in range(r_a, r_b):
         sizes = np.clip(np.exp(rng.normal(MU, SIG, K)), 500, 50000).astype(int)
         Xs, ys = [], []
         for n in sizes:
-            Xk, _, yk = gen(rng, theta_bar + h * unit(rng), 0.3 + h * rng.normal(), n)
+            th_k, gam_k = theta_bar + h * unit(rng), 0.3 + h * rng.normal()
+            b0_k = B0 + (h * rng.normal() if SCEN == "icpt" else 0.0)
+            Xk, _, yk = gen(rng, th_k, gam_k, n, b0=b0_k)
             Xs.append(Xk); ys.append(yk)
         pooled = LogisticRegression(max_iter=300).fit(np.vstack(Xs), np.concatenate(ys))
         th_f, gam_f = theta_bar + h * unit(rng), 0.3 + h * rng.normal()
-        Xt, qt = gen(rng, th_f, gam_f, NT, with_y=False)
+        b0_f = B0 + (h * rng.normal() if SCEN == "icpt" else 0.0)
+        Xt, qt = gen(rng, th_f, gam_f, NT, with_y=False, b0=b0_f + SHIFT)   # truth distribution (shifted in 'shift')
         pp_t = pooled.predict_proba(Xt)[:, 1]; gt = Xt[:, -1]
         for n in NS:
-            Xf, qf, yf = gen(rng, th_f, gam_f, n)
+            Xf, qf, yf = gen(rng, th_f, gam_f, n, b0=b0_f)                    # certification data: never shifted
             tr, ce = slice(0, n // 2), slice(n // 2, n // 2 + n // 4)
             if yf[tr].sum() >= 3:
                 loc = LogisticRegression(max_iter=300).fit(Xf[tr], yf[tr])
@@ -91,7 +97,8 @@ for rep in range(r_a, r_b):
                              int(T[3][0] > eps or T[3][1] > delta), int(sel == 3)))
     print(f"rep {rep} done, {time.time() - t0:.0f}s", flush=True)
 
+tag = "" if SCEN == "base" else f"{SCEN}_"
 pd.DataFrame(rows, columns=["rep", "h", "n", "eps", "delta", "blend", "harm_certified", "gain_certified", "nonlocal",
                             "harm_pool_full", "harm_pool_clipped", "approved_pool"]).to_csv(
-    ROOT / f"outputs/tables/sim_cert_{r_a}-{r_b}.csv", index=False)
-print("saved")
+    ROOT / f"outputs/tables/sim_cert_{tag}{r_a}-{r_b}.csv", index=False)
+print("saved", SCEN)
