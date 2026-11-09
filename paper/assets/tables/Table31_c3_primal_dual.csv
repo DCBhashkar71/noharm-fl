@@ -1,0 +1,4 @@
+eps,delta,certified_pd,certified_pool80,gain_mean,gain_min,gain_max,auroc_cost,rule_met
+0.005,0.01,16.4,17.2,-0.8,-2,0,0.0003,False
+0.01,0.015,55.8,55.8,0.0,0,0,0.0004,False
+0.02,0.02,99.4,99.6,-0.2,-1,0,0.0,False
