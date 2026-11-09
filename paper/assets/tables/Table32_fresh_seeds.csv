@@ -1,0 +1,13 @@
+eps,delta,method,loss_harm_max,cal_harm_max,either_mean,either_max,nonlocal_mean,mean_loss_diff,auroc_gain,loss_diff,loss_lo,loss_hi,auroc,auroc_lo,auroc_hi
+0.005,0.01,certified fine-tuned,0,0,0.0,0,17.5,-2e-05,0.00012,-2e-05,-4e-05,0.0,0.00012,-1e-05,0.00025
+0.005,0.01,certified pooled,0,0,0.0,0,16.5,1e-05,0.00024,1e-05,-2e-05,5e-05,0.00024,2e-05,0.00049
+0.005,0.01,"pooled (unclipped), harm at pair",2,8,6.1,8,,0.00272,0.00124,,,,,,
+0.005,0.01,"pooled (unclipped), zero tolerance",22,25,27.9,31,,0.00272,0.00124,,,,,,
+0.01,0.015,certified fine-tuned,0,0,0.0,0,54.4,-7e-05,0.00076,-7e-05,-0.00012,-1e-05,0.00076,0.00034,0.00123
+0.01,0.015,certified pooled,0,0,0.0,0,54.6,0.00012,0.00097,0.00012,4e-05,0.0002,0.00097,0.00042,0.00155
+0.01,0.015,"pooled (unclipped), harm at pair",1,4,2.4,4,,0.00272,0.00124,,,,,,
+0.01,0.015,"pooled (unclipped), zero tolerance",22,25,27.9,31,,0.00272,0.00124,,,,,,
+0.02,0.02,certified fine-tuned,0,0,0.0,0,99.5,-0.00033,0.00273,-0.00033,-0.00042,-0.00023,0.00273,0.00204,0.00343
+0.02,0.02,certified pooled,0,0,0.0,0,99.2,8e-05,0.00393,8e-05,-0.00011,0.00029,0.00393,0.00282,0.00503
+0.02,0.02,"pooled (unclipped), harm at pair",0,2,0.7,2,,0.00272,0.00124,,,,,,
+0.02,0.02,"pooled (unclipped), zero tolerance",22,25,27.9,31,,0.00272,0.00124,,,,,,
