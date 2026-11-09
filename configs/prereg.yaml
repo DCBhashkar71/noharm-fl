@@ -147,3 +147,11 @@ amendment_20:
   seeds: [110, 111, 112, 113, 114]
   not_yet_run: "MaxFL, FedIDA, Fair and Consistent FL (definitions to be read first)"
   checks: "training-set worst-hospital and worst-group loss reported for pooled and each model"
+amendment_22:
+  date: 2026-11-09
+  purpose: fresh-seed replication of the headline certificate result
+  seeds: 115-124
+  script: scripts/run_cert_full.py, default options, frozen settings of seeds 110-114
+  primary_claim: certified choices harm 0 hospitals in every seed at all three (eps, delta) pairs
+  secondary: uncertified pooled harm share at zero tolerance; bootstrap CIs over hospitals for mean loss change and AUROC gain
+  note: seeds share hospitals, so they are repeated splits, not independent evidence
