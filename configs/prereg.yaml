@@ -161,3 +161,9 @@ amendment_23:
   base: reps 200-1199, same settings as before
   icpt: reps 0-199, hospital intercepts vary with h
   shift: reps 0-199, focal test intercept +0.3 after certification (limitation test, not a claim)
+amendment_24:
+  date: 2026-11-09
+  purpose: MaxFL baseline (plan lists it as closest work); FedIDA and Fair-and-Consistent FL not run
+  maxfl: two variants, weight sigma(F_k - rho_k) as in Algorithm 1 and sigma*(1-sigma) from the objective's gradient; rho_k = local model training loss; 50 rounds, 10 inner iterations, unscaled; hospitals outside the 126 get the weight at F=rho
+  seeds: 110-114
+  not_run: FedIDA (different fairness target, unspecified hyperparameters); Fair and Consistent FL (demographic-parity constraint and gradient-hull solver not implemented)
