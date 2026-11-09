@@ -155,3 +155,9 @@ amendment_22:
   primary_claim: certified choices harm 0 hospitals in every seed at all three (eps, delta) pairs
   secondary: uncertified pooled harm share at zero tolerance; bootstrap CIs over hospitals for mean loss change and AUROC gain
   note: seeds share hospitals, so they are repeated splits, not independent evidence
+amendment_23:
+  date: 2026-11-09
+  purpose: larger simulation and two new scenarios
+  base: reps 200-1199, same settings as before
+  icpt: reps 0-199, hospital intercepts vary with h
+  shift: reps 0-199, focal test intercept +0.3 after certification (limitation test, not a claim)
